@@ -57,7 +57,7 @@ const Home = () => {
   const [tarefas, setTarefas] = useState<TarefaInterface[]>([]);
   const [mostrarModal, setMostrarModal] = useState(false);
    useEffect(() => {
-    axios.get("https://dummyjson.com/todos.")
+    axios.get("https://dummyjson.com/todos")
       .then((response) => {
         const tarefasData: TarefaInterface[] = response.data.todos.map((tarefa: any) => ({
           id: tarefa.id,
