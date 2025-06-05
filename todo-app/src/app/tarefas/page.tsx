@@ -59,8 +59,7 @@ const Home = () => {
    useEffect(() => {
     axios.get("https://dummyjson.com/todos.")
       .then((response) => {
-        const tarefasData: TarefaInterface[] = response.data.todos
-        .map((tarefa: any) => ({
+        const tarefasData: TarefaInterface[] = response.data.todos.map((tarefa: any) => ({
           id: tarefa.id,
           title: tarefa.todo,
           completed: tarefa.completed,
