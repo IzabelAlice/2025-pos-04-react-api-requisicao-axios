@@ -2,9 +2,10 @@
 
 import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
-import dados, { TarefaInterface } from "@/data";
+import { TarefaInterface } from "@/data";
 import Cabecalho from "@/componentes/Cabecalho";
 import ModalTarefa from "@/componentes/Add_tarefa";
+
 
 interface Tarefa {
   titulo: string;
@@ -55,11 +56,21 @@ const Tarefas: React.FC<Tarefas> = ({ dados }) => {
 const Home = () => {
   const [tarefas, setTarefas] = useState<TarefaInterface[]>([]);
   const [mostrarModal, setMostrarModal] = useState(false);
-
-  useEffect(() => {
-  axios.get("https://jsonplaceholder.typicode.com/todos?_limit=10")
-    .then(res => setTarefas(res.data));
-  }, []);
+   useEffect(() => {
+    axios.get("https://dummyjson.com/todos.")
+      .then((response) => {
+        const tarefasData: TarefaInterface[] = response.data.todos
+        .map((tarefa: any) => ({
+          id: tarefa.id,
+          title: tarefa.todo,
+          completed: tarefa.completed,
+        }));
+        setTarefas(tarefasData);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar tarefas:", error);
+      });
+    }, []);
 
   const adicionarTarefa = (titulo: string) => {
     const novaTarefa: TarefaInterface = {
